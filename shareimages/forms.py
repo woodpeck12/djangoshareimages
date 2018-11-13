@@ -1,10 +1,10 @@
 from django import forms
 from .models import ShareIamge
-from urllb import request
+from urllib import request
 from django.core.files.base import ContentFile
-from django.utils.text import slugfy
+from django.utils.text import slugify
 
-class ShareImageCreateForm(forms.Model):
+class ShareImageCreateForm(forms.ModelForm):
 	class Meta:
 		model = ShareIamge
 		fields = ('title','url','description')
@@ -19,10 +19,10 @@ class ShareImageCreateForm(forms.Model):
 			raise forms.ValidationError('you are trying to load incorrect format of image. image must be joeg or jpg')
 		return url
 
-	def save(self,*args, **kwarg):
+	def save(self,commit=True,*args, **kwarg):
 		saved_img = super().save(commit=False)
 		img_url = self.cleaned_data['url']
-		img_name = '{}.{}'.format(slugfy(saved_img),img_url.rsplit('.',1)[1].lower())
+		img_name = '{}.{}'.format(slugify(saved_img),img_url.rsplit('.',1)[1].lower())
 
 
 		response= request.urlopen(img_url)
