@@ -1,0 +1,15 @@
+{% extends "shareimages_base.html" %}
+{% block title %}
+    this is for shareimage create.html
+{% endblock %}
+
+{% block content %}
+    <h1>this is image create page create.html</h1>
+    <img src="{{ request.GET.url }}">
+
+    <form action="." method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit">
+    </form>
+{% endblock %}
