@@ -12,9 +12,15 @@ def shareimage_create(request):
         form = ShareImageCreateForm(request.POST)
         if form.is_valid():
             cleaned_data = form.cleaned_data
-            received_date = form.save(commit=False)
+            received_data = form.save(commit=False)
 
-            received_date.user = request.User
-            received_date.save()
+            received_data.user = request.user
+            received_data.save()
             messages.success(request,'data is added')
+
+            return redirect(received_data.get_absolute_url())
+    else:
+         form = ShareImageCreateForm(data=request.GET)
+
+    return render(request,"shareimage/image/create.html",{'section':'images','form':form})
 
