@@ -8,7 +8,7 @@ class ShareIamge(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,related_name='images_created_by', on_delete='CASCADE')
 
     title = models.CharField(max_length=100)
-    slug = models.SlugField(max_length=100,blank=True)
+    slug = models.SlugField(max_length=100,blank=True)  ##woodpeck -- label
     url = models.URLField()
     image = models.ImageField(upload_to='images/%Y/%m/%d')
     description = models.TextField(blank=True)
@@ -22,5 +22,5 @@ class ShareIamge(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
-        super(ShareIamge, self).save(*args, **kwargs)
-	        #super().save(*args,**kwargs)
+        #super(ShareIamge, self).save(*args, **kwargs)
+        super().save(*args,**kwargs)

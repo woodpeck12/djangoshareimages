@@ -14,7 +14,7 @@ def shareimage_create(request):
             cleaned_data = form.cleaned_data
             received_data = form.save(commit=False)
 
-            received_data.user = request.User
+            received_data.user = request.user
             received_data.save()
             messages.success(request,'data is added')
 
